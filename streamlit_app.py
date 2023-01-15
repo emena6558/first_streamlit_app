@@ -52,12 +52,19 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 # don't run anything past here while we troubleshoot
 streamlit.stop()
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_row = my_cur.fetchall()
+
 streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_row)
+#snowflake-related functions
+def get_fruit_load_list():
+   with my_cnx.cursor() as my_cur:
+      my_cur.execute("select * from fruit_load_list")
+      retun my_cur.fetchall()
+
+#add a button to load the fruit
+if streamlit.butoon('Get Fruit Load List'):
+   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+   my_data_rowos = get_fruit_load_list()
+   streamlit.dataframe(my_data_rows)
 
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','fruit')
 streamlit.write('The user entered ', add_my_fruit)
