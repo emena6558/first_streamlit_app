@@ -50,7 +50,7 @@ streamlit.write('The user entered ', fruit_choice)
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 # don't run anything past here while we troubleshoot
-streamlit.stop()
+#streamlit.stop()
 
 
 streamlit.header("The fruit load list contains:")
@@ -58,7 +58,7 @@ streamlit.header("The fruit load list contains:")
 def get_fruit_load_list():
    with my_cnx.cursor() as my_cur:
       my_cur.execute("select * from fruit_load_list")
-      retun my_cur.fetchall()
+      return my_cur.fetchall()
 
 #add a button to load the fruit
 if streamlit.butoon('Get Fruit Load List'):
